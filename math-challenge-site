@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Matemático</title>
+    <script>
+        function generateChallenge() {
+            let type = Math.floor(Math.random() * 8);
+            let question = "";
+            let answer = "";
+            let tutorial = "";
+
+            switch (type) {
+                case 0: // Limite básico
+                    let a = Math.floor(Math.random() * 10) + 1;
+                    let b = Math.floor(Math.random() * 10) + 1;
+                    question = `lim x→${b} (${a}x + ${b})`;
+                    answer = a * b + b;
+                    tutorial = "Para resolver este limite, basta substituir x pelo valor dado.";
+                    break;
+                case 1: // Derivada simples
+                    let c = Math.floor(Math.random() * 10) + 1;
+                    let d = Math.floor(Math.random() * 5) + 1;
+                    question = `d/dx (${c}x^${d})`;
+                    answer = c * d + "x^" + (d - 1);
+                    tutorial = "Use a regra do expoente: d/dx (ax^n) = n * ax^(n-1).";
+                    break;
+                case 2: // Integral simples
+                    let e = Math.floor(Math.random() * 10) + 1;
+                    let f = Math.floor(Math.random() * 5) + 1;
+                    question = `∫ ${e}x^${f} dx`;
+                    answer = `${e / (f + 1)}x^${f + 1} + C`;
+                    tutorial = "Para integrar x^n, use a fórmula: ∫ x^n dx = (x^(n+1))/(n+1) + C.";
+                    break;
+                case 3: // Teorema Fundamental do Cálculo
+                    let g = Math.floor(Math.random() * 5) + 1;
+                    let h = Math.floor(Math.random() * 10) + 1;
+                    question = `Se F(x) = ∫(0 até x) ${h}t^${g} dt, qual é F'(x)?`;
+                    answer = `${h}x^${g}`;
+                    tutorial = "A derivada de uma integral definida com limite variável superior é simplesmente a função dentro da integral, trocando t por x.";
+                    break;
+                case 4: // Função do 1º grau
+                    let i = Math.floor(Math.random() * 10) + 1;
+                    let j = Math.floor(Math.random() * 10) + 1;
+                    question = `Resolva para x: ${i}x + ${j} = 0`;
+                    answer = (-j / i).toFixed(2);
+                    tutorial = "Isolamos x subtraindo j e dividindo tudo por i.";
+                    break;
+                case 5: // Função do 2º grau
+                    let k = Math.floor(Math.random() * 5) + 1;
+                    let l = Math.floor(Math.random() * 10) + 1;
+                    let m = Math.floor(Math.random() * 10) + 1;
+                    question = `Qual o valor de Δ para ${k}x² + ${l}x + ${m} = 0?`;
+                    answer = (l * l - 4 * k * m);
+                    tutorial = "Use a fórmula do discriminante: Δ = b² - 4ac.";
+                    break;
+                case 6: // Trigonometria básica
+                    let angles = [30, 45, 60, 90];
+                    let angle = angles[Math.floor(Math.random() * angles.length)];
+                    question = `Qual é o seno de ${angle}°?`;
+                    let sineValues = {30: "0.5", 45: "0.707", 60: "0.866", 90: "1"};
+                    answer = sineValues[angle];
+                    tutorial = "Memorize os valores do seno dos ângulos notáveis: 30°, 45°, 60° e 90°.";
+                    break;
+                case 7: // Logaritmos
+                    let base = Math.floor(Math.random() * 5) + 2;
+                    let power = Math.floor(Math.random() * 3) + 2;
+                    let result = Math.pow(base, power);
+                    question = `log_${base}(${result}) = ?`;
+                    answer = power;
+                    tutorial = "Um logaritmo responde à pergunta: 'Qual expoente devo aplicar à base para obter este número?'.";
+                    break;
+            }
+
+            document.getElementById("question").innerText = question;
+            document.getElementById("correctAnswer").value = answer;
+            document.getElementById("tutorial").innerText = tutorial;
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim();
+            let correctAnswer = document.getElementById("correctAnswer").value.trim();
+            if (userAnswer === correctAnswer) {
+                alert("Correto! Você pode voltar ao aplicativo.");
+            } else {
+                alert("Errado! Tente novamente.");
+            }
+            generateChallenge();
+        }
+    </script>
+</head>
+<body onload="generateChallenge()">
+    <h2>Resolva o Desafio Matemático para Continuar</h2>
+    <p id="question"></p>
+    <input type="text" id="answer" placeholder="Digite sua resposta">
+    <input type="hidden" id="correctAnswer">
+    <button onclick="checkAnswer()">Verificar</button>
+    <p><strong>Como Resolver:</strong> <span id="tutorial"></span></p>
+</body>
+</html>
